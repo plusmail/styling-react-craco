@@ -2,9 +2,10 @@ import {MdAdd, MdAddAlarm} from "react-icons/md";
 import '@styles/TodoInsert.scss'
 import {useCallback, useState} from "react";
 
-const TodoInsert = () => {
+const TodoInsert = ({onInsert}) => {
 
     const [value, setValue] = useState('');
+
     const onChange = useCallback(e => {
         console.log(e.target.value);
         setValue(e.target.value);
@@ -12,8 +13,18 @@ const TodoInsert = () => {
     // []이렇게 하는 것은 state, props,
     // 부모가 변경 되었을때 갱신(랜드링) 안하게 하는것
 
+    const onSubmit = useCallback(
+        e=>{
+
+            onInsert(value);
+
+            setValue('')
+            e.preventDefault();
+        }, [onInsert,value]
+    )
+
     return (
-        <form className={"TodoInsert"}>
+        <form className={"TodoInsert"} onSubmit={onSubmit}>
             <input placeholder={"할일을 입력하세요."}
                    value={value}
                    onChange={onChange}

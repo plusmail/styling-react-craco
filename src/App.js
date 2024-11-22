@@ -26,6 +26,7 @@ function App() {
     const nextId = useRef(4);
 
     const onInsert = useCallback(
+        // text 는 TodoInsert onSubmit에 있는 onInsert( value )
         text => {
             const todo = {
                 id: nextId.current,
@@ -41,6 +42,7 @@ function App() {
 
     return (
         <TodoTemplate>
+            {/*App.js에서 onInsert useCallback 함수를 TodoInsert로 함수를 전달*/}
             <TodoInsert onInsert={onInsert}/>
             <TodoList todos={todos}/>
         </TodoTemplate>
